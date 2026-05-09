@@ -107,7 +107,7 @@ if not check_password():
 RUN_DIR = Path("outputs/baseline_v4")
 DASHBOARD_FILE = RUN_DIR / "dashboard_data.pkl"
 RAW_FILE = RUN_DIR / "backtest_result.pkl"
-DATA_FILE = Path("data/ai_signal_data.xlsx")
+DATA_FILE = Path(r"C:\Users\westl\PycharmProjects\pythonProject\venv_vf_new\machine\re_study\ai_signal_data.xlsx")
 
 
 @st.cache_resource(show_spinner="대시보드 데이터 로딩 중...")

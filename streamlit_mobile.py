@@ -475,6 +475,24 @@ with tab_ow:
             use_container_width=True,
             height=min(420, 40 + 35 * len(uw_table)),
         )
+
+        st.markdown("#### 🏆 종합 스코어 Top 30")
+        if not preds.dropna().empty:
+            top30_tkrs = preds.dropna().nlargest(30).index.tolist()
+            top30_table = build_table(top30_tkrs)
+            top30_table.insert(0, "Rank", range(1, len(top30_table) + 1))
+            st.dataframe(
+                top30_table.style
+                    .format({"Rank": "{:d}"})
+                    .format("{:+.2f}", subset=["Act%", "Score"] + list(G.columns))
+                    .background_gradient(subset=["Score"] + list(G.columns),
+                                         cmap="RdYlGn", vmin=-2, vmax=2),
+                use_container_width=True,
+                height=min(1100, 40 + 35 * len(top30_table)),
+            )
+        else:
+            st.info("이 시점의 composite prediction 데이터가 없습니다.")
+
         st.caption(
             "각 그룹 z-score는 해당 시점 universe 평균 대비 표준편차 단위. "
             "Score는 모델 예측 (bps, 20일 잔차수익률 단위)."
